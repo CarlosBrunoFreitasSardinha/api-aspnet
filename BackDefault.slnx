@@ -1,3 +1,18 @@
 <Solution>
-  <Project Path="CB.BackDefault.api/CB.BackDefault.api.csproj" />
+  <Folder Name="/1 - Service/">
+    <Project Path="CB.BackDefault.api/CB.BackDefault.Api.csproj" />
+  </Folder>
+  <Folder Name="/2 - Application/">
+    <Project Path="CB.BackDefault.Application/CB.BackDefault.Application.csproj" />
+  </Folder>
+  <Folder Name="/3 - Domain/">
+    <Project Path="CB.BackDefault.Domain/CB.BackDefault.Domain.csproj" />
+  </Folder>
+  <Folder Name="/4 - Infra/">
+    <Project Path="CB.BackDefault.Infra.Data/CB.BackDefault.Infra.Data.csproj" />
+  </Folder>
+  <Folder Name="/5 - Testes/">
+    <Project Path="CB.BackDefault.Test.Validations/CB.BackDefault.Test.Validations.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/" />
 </Solution>
