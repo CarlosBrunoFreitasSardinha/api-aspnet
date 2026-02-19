@@ -1,3 +1,6 @@
+using CB.BackDefault.Api.Configurations;
+using CB.BackDefault.Application.AutoMapper; // namespace onde está AutoMapperProfile
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,8 +12,10 @@ builder.Services.AddControllers();
 
 // Adiciona e configura o Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
+builder.Services.AddAutoMapperConfiguration();
+
+builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
