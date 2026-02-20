@@ -1,10 +1,15 @@
-﻿namespace CB.BackDefault.Api.Configurations
+﻿using CB.BackDefault.Application.Extensions;
+using CB.BackDefault.Infra.Data.Extensions;
+
+
+namespace CB.BackDefault.Api.Configurations
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
+        public static IServiceCollection AddDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddScoped<IUserRepository, UserRepository>();
+            services.AddApplication();
+            services.AddInfra(configuration);
             return services;
         }
     }

@@ -1,5 +1,4 @@
 using CB.BackDefault.Api.Configurations;
-using CB.BackDefault.Application.AutoMapper; // namespace onde está AutoMapperProfile
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddAutoMapperConfiguration();
+
+builder.Services.AddDependencyInjection(builder.Configuration);
 
 builder.Services.AddSwaggerGen();
 var app = builder.Build();

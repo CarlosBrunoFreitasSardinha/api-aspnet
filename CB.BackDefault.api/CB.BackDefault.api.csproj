@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CB.BackDefault.Application\CB.BackDefault.Application.csproj" />
+    <ProjectReference Include="..\CB.BackDefault.Infra.Data\CB.BackDefault.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>
