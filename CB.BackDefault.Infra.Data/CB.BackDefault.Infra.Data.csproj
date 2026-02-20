@@ -8,9 +8,16 @@
 
   <ItemGroup>
     <Folder Include="Aggregates\" />
-    <Folder Include="Context\" />
     <Folder Include="Migrations\" />
     <Folder Include="Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CB.BackDefault.Domain\CB.BackDefault.Domain.csproj" />
   </ItemGroup>
 
 </Project>
