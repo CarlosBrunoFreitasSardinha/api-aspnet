@@ -12,8 +12,6 @@ builder.Services.AddControllers();
 // Adiciona e configura o Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddAutoMapperConfiguration();
-
 builder.Services.AddDependencyInjection(builder.Configuration);
 
 builder.Services.AddSwaggerGen();
