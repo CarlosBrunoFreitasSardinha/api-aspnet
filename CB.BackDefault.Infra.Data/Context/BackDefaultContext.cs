@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CB.BackDefault.Domain.Aggregates.AggregatesTest.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 
@@ -12,6 +13,9 @@ namespace CB.BackDefault.Infra.Data.Context
         {
             _configuration = configuration;
         }
+        //remover - apenas para fins de teste
+        public DbSet<PersonModel> Persons { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
