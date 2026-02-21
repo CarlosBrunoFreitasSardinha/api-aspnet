@@ -12,7 +12,8 @@
     <Project Path="CB.BackDefault.Infra.Data/CB.BackDefault.Infra.Data.csproj" />
   </Folder>
   <Folder Name="/5 - Testes/">
-    <Project Path="CB.BackDefault.Test.Validations/CB.BackDefault.Test.Validations.csproj" />
+    <Project Path="CB.BackDefault.IntegrationTests/CB.BackDefault.IntegrationTests.csproj" Id="763fcfde-c3c4-4320-84d9-0c02cb75e5c2" />
+    <Project Path="CB.BackDefault.Test.Validations/CB.BackDefault.UnitTests.csproj" />
   </Folder>
   <Folder Name="/Solution Items/" />
 </Solution>
