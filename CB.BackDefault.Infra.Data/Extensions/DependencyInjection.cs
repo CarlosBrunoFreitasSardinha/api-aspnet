@@ -12,6 +12,8 @@ namespace CB.BackDefault.Infra.Data.Extensions
             services.AddDbContext<BackDefaultContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddScoped<Func<BackDefaultContext>>(provider => () => provider.GetRequiredService<BackDefaultContext>());
+            services.AddScoped<DbFactory>();
             // services.AddScoped<IUserRepository, UserRepository>();
             // services.AddScoped<IUnitOfWork, UnitOfWork>();
 

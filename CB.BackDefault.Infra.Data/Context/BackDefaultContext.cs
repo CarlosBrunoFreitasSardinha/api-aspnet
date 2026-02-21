@@ -50,6 +50,7 @@ namespace CB.BackDefault.Infra.Data.Context
                 }
             }
 
+            modelBuilder.addChavePrimaria();
             base.OnModelCreating(modelBuilder);
         }
     } 
