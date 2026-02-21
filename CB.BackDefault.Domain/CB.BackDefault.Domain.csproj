@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Aggregates\AggregatesTest\Interfaces\" />
     <Folder Include="Aggregates\AggregatesTest\Especifications\" />
-    <Folder Include="Aggregates\AggregatesTest\Models\" />
     <Folder Include="Utils\" />
     <Folder Include="Shared\" />
   </ItemGroup>
