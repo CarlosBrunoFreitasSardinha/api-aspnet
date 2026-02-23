@@ -5,12 +5,19 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CB.BackDefault.IntegrationTests.Domain
 {
-    public class IntegrationRepositoryTestsDomain : IntegrationTestBase
+    public class EntityRepositoryTests : IClassFixture<IntegrationTestBase>
     {
+        private readonly IntegrationTestBase _factory;
+
+        public EntityRepositoryTests(IntegrationTestBase factory)
+        {
+            _factory = factory;
+        }
+
         [Fact]
         public async Task Deve_Adicionar_E_Recuperar_Entidade_Do_Banco()
         {
-            using var scope = Services.CreateScope();
+            using var scope = _factory.Services.CreateScope();
             var repository = scope.ServiceProvider.GetRequiredService<IRepository<PersonModel>>();
             var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
