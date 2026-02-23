@@ -1,11 +1,13 @@
 ﻿using CB.BackDefault.Domain.Aggregates.AggregatesTest.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 
 namespace CB.BackDefault.Infra.Data.Context
 {
-    public class BackDefaultContext : DbContext
+    public class BackDefaultContext : IdentityDbContext<IdentityUser>
     {
         private readonly IConfiguration _configuration;
 
@@ -55,6 +57,7 @@ namespace CB.BackDefault.Infra.Data.Context
             }
 
             modelBuilder.addChavePrimaria();
+
             base.OnModelCreating(modelBuilder);
         }
     } 
