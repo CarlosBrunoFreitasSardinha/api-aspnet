@@ -10,5 +10,11 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Password { get; set; }
+
+        public LoginViewModel() { }
+        public LoginViewModel(string email, string senha) { 
+            this.Email = email;
+            this.Password = senha;
+        }
     }
 }

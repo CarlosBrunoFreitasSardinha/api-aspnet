@@ -14,5 +14,13 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels
 
         [Compare("Password", ErrorMessage = "As senhas não conferem.")]
         public string ConfirmPassword { get; set; }
+        public RegisterViewModel() { }
+
+        public RegisterViewModel(string email, string senha, string confirmeSenha)
+        {
+            this.Email = email;
+            this.Password = senha;
+            this.ConfirmPassword = confirmeSenha;
+        }
     }
 }

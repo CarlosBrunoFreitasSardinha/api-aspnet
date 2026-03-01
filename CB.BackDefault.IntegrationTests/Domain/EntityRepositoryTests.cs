@@ -14,7 +14,8 @@ namespace CB.BackDefault.IntegrationTests.Domain
             _factory = factory;
         }
 
-        [Fact]
+        [Fact(DisplayName = "Deve Adicionar e Recuperar Entidado do Banco")]
+        [Trait("Core", "Core - Funcionando")]
         public async Task Deve_Adicionar_E_Recuperar_Entidade_Do_Banco()
         {
             using var scope = _factory.Services.CreateScope();
