@@ -10,11 +10,13 @@ namespace CB.BackDefault.Api.Configurations
     {
         public static IServiceCollection AddDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
-            var jwtSettings = configuration.GetSection("Jwt").Get<JwtSettings>() ?? throw new InvalidOperationException("Jwt configuration is missing");
+            var jwtSettings = configuration.GetSection("Jwt").Get<JwtSettings>() 
+                            ?? throw new InvalidOperationException("Configuração de Jwt Não Encontrada");
             services.AddSingleton(jwtSettings);
 
             services.AddApplication();
             services.AddInfra(configuration);
+
             services.AddAuthConfiguration(configuration);
             return services;
         }
