@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="bogus" Version="35.6.5" />
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
@@ -21,12 +22,6 @@
     <ProjectReference Include="..\CB.BackDefault.Domain\CB.BackDefault.Domain.csproj" />
     <ProjectReference Include="..\CB.BackDefault.Infra.Data\CB.BackDefault.Infra.Data.csproj" />
   </ItemGroup>
-	
- <ItemGroup>
-    <None Update="appsettings.json">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
- </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
