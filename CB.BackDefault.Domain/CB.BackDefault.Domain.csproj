@@ -9,8 +9,10 @@
   <ItemGroup>
     <Folder Include="Aggregates\AggregatesTest\Interfaces\" />
     <Folder Include="Aggregates\AggregatesTest\Especifications\" />
-    <Folder Include="Utils\" />
-    <Folder Include="Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
   </ItemGroup>
 
 </Project>

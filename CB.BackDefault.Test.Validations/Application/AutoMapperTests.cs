@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CB.BackDefault.Application.AutoMapper;
 
-namespace CB.BackDefault.UnitTests.Base
+namespace CB.BackDefault.UnitTests.Application
 {
     public class AutoMapperTests
     {

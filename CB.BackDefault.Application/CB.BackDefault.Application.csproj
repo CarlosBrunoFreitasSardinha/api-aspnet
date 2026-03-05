@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Aggregates\AuthAggregate\Services\" />
+    <Folder Include="Aggregates\AuthAggregate\Commands\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 

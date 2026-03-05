@@ -9,7 +9,8 @@
   <ItemGroup>
     <Folder Include="Aggregates\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Shared\" />
+    <Folder Include="Shared\Mappings\" />
+    <Folder Include="Shared\Repositorys\" />
   </ItemGroup>
 
   <ItemGroup>
