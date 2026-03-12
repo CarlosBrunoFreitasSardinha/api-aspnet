@@ -9,13 +9,10 @@ namespace CB.BackDefault.Infra.Data.Context
 {
     public class BackDefaultContext : IdentityDbContext<IdentityUser>
     {
-        private readonly IConfiguration _configuration;
 
-        public BackDefaultContext(DbContextOptions<BackDefaultContext> options, IConfiguration configuration) : base(options)
+        public BackDefaultContext(DbContextOptions<BackDefaultContext> options) : base(options)
         {
-            _configuration = configuration;
         }
-        //remover - apenas para fins de teste
         public DbSet<PersonModel> Persons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -60,6 +57,7 @@ namespace CB.BackDefault.Infra.Data.Context
 
             base.OnModelCreating(modelBuilder);
         }
+
     } 
 
 }

@@ -1,4 +1,5 @@
 ﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels;
+using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels.Response;
 using Microsoft.AspNetCore.Identity;
 
 namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces
@@ -6,7 +7,7 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces
     public interface IAuthService
     {
         // Realiza o login e retorna o token JWT
-        Task<string?> LoginAsync(LoginViewModel model);
+        Task<AuthResponse?> LoginAsync(LoginViewModel model);
 
         // Cria um novo usuário no Identity
         Task<IdentityResult> RegisterAsync(RegisterViewModel model);

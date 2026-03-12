@@ -1,9 +1,11 @@
 ﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces;
 using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels;
+using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels.Response;
 using CB.BackDefault.Application.Shared.Settings;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
@@ -18,11 +20,11 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
         public AuthService(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            JwtSettings jwtSettings)
+            IOptions<JwtSettings> jwtSettings)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _jwtSettings = jwtSettings;
+            _jwtSettings = jwtSettings.Value;
         }
 
         public async Task<IdentityResult> RegisterAsync(RegisterViewModel model)
@@ -31,12 +33,16 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
             return await _userManager.CreateAsync(user, model.Password);
         }
 
-        public async Task<string?> LoginAsync(LoginViewModel model)
+        public async Task<AuthResponse?> LoginAsync(LoginViewModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, true);
+            var result = await _signInManager.PasswordSignInAsync(model.Email,
+                                                                    model.Password,
+                                                                    isPersistent: false,
+                                                                    lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                return await GerarJwt(model.Email);
+                var email = await GerarJwt(model.Email);
+                return new AuthResponse(email, DateTime.Now);
             }
             return null;
         }
@@ -44,12 +50,15 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
         public async Task<string> GerarJwt(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            var claims = await _userManager.GetClaimsAsync(user);
+            var userClaims = await _userManager.GetClaimsAsync(user);
 
             // Adicionamos claims básicas
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+            var claims = new List<Claim>(userClaims)
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
 
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings.Secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
