@@ -14,8 +14,10 @@ namespace CB.BackDefault.Api.Configurations
                             ?? throw new InvalidOperationException("Configuração de Jwt Não Encontrada");
             services.AddSingleton(jwtSettings);
 
-            services.AddApplication();
-            services.AddInfra(configuration);
+            services.AddDataBase(configuration);
+            services.AddRepositories();
+            services.AddServices(configuration);
+            services.AddAutoMapper();
 
             services.AddAuthConfiguration(configuration);
             return services;
