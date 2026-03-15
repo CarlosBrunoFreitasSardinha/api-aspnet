@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CB.BackDefault.Domain.Aggregates.AuthAggregate.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CB.BackDefault.Infra.Data.Context
 {
@@ -6,7 +7,6 @@ namespace CB.BackDefault.Infra.Data.Context
     {
         public static void addChavePrimaria(this ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Usuario>().HasKey(c => c.Id);
         }
     }
 }

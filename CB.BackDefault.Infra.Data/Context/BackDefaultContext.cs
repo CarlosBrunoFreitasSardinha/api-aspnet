@@ -1,9 +1,8 @@
-﻿using CB.BackDefault.Domain.Aggregates.AggregatesTest.Models;
+﻿using CB.BackDefault.Domain.Aggregates.AuthAggregate.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Microsoft.Extensions.Configuration;
 
 namespace CB.BackDefault.Infra.Data.Context
 {
@@ -13,8 +12,6 @@ namespace CB.BackDefault.Infra.Data.Context
         public BackDefaultContext(DbContextOptions<BackDefaultContext> options) : base(options)
         {
         }
-        public DbSet<PersonModel> Persons { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
