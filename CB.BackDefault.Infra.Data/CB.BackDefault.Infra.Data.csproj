@@ -7,16 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\" />
     <Folder Include="Migrations\" />
     <Folder Include="Shared\Mappings\" />
-    <Folder Include="Shared\Repositorys\" />
+    <Folder Include="Shared\Repositories\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.3" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.3" />
+
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.5" />
+
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.5">
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CB.BackDefault.Domain\CB.BackDefault.Domain.csproj" />
