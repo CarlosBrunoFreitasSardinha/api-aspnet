@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using CB.BackDefault.Infra.Data.Context;
 
 namespace CB.BackDefault.IntegrationTests.Base
 {
     public class BackDefaultFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
     {
-        protected override IHost CreateHost(IHostBuilder builder)
+        protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("Testing");
 
@@ -16,7 +19,16 @@ namespace CB.BackDefault.IntegrationTests.Base
                 config.AddJsonFile("appsettings.Testing.json", optional: false);
             });
 
-            return base.CreateHost(builder);
+            builder.ConfigureServices(services =>
+            {
+                using var scope = services.BuildServiceProvider().CreateScope();
+
+                var context = scope.ServiceProvider.GetRequiredService<BackDefaultContext>();
+
+                context.Database.EnsureDeleted();
+
+                context.Database.Migrate();
+            });
         }
     }
 }
