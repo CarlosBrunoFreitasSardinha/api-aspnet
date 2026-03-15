@@ -48,7 +48,7 @@ namespace CB.BackDefault.Infra.Data
         {
             if (expressao != null)
             {
-                return await Dbset.FirstAsync(expressao);
+                return await Dbset.FirstOrDefaultAsync(expressao);
             }
             return null;
         }
