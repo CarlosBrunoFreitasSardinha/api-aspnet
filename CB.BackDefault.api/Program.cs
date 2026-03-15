@@ -2,6 +2,7 @@ using CB.BackDefault.Api.Configurations;
 using CB.BackDefault.Api.Middlewares;
 using CB.BackDefault.Application.Shared.Settings;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -12,8 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddDependencyInjection(builder.Configuration);
+builder.Services.AddSwaggerConfiguration();
 
-builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
