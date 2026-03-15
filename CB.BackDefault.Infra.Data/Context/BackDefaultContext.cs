@@ -12,6 +12,7 @@ namespace CB.BackDefault.Infra.Data.Context
         public BackDefaultContext(DbContextOptions<BackDefaultContext> options) : base(options)
         {
         }
+        public DbSet<RefreshTokenModel> RefreshTokens { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(

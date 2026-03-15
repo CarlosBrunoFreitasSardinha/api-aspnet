@@ -7,6 +7,7 @@ namespace CB.BackDefault.Infra.Data.Context
     {
         public static void addChavePrimaria(this ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<RefreshTokenModel>().HasKey(c=>c.Id);
         }
     }
 }
