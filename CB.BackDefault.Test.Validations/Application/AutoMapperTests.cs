@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using CB.BackDefault.Application.AutoMapper;
 
 namespace CB.BackDefault.UnitTests.Application
@@ -9,13 +10,12 @@ namespace CB.BackDefault.UnitTests.Application
         [Trait("Core", "Auto Mapper Application")]
         public void Deve_Ter_ConfiguracaoValida_Do_AutoMapper()
         {
-            //arrange
-            var config = new MapperConfiguration(cfg => {
-                //act
-                cfg.AddProfile<AutoMapperProfile>();
-            });
+            var loggerFactory = LoggerFactory.Create(builder => { });
 
-            //assert
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddMaps(typeof(AutoMapperProfile).Assembly);
+            }, loggerFactory);
 
             config.AssertConfigurationIsValid();
         }
