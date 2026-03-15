@@ -8,13 +8,11 @@ namespace CB.BackDefault.Api.Extensions
 {
     public static class ConfigIdentity
     {
-
         public static IServiceCollection AddAuthConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<BackDefaultContext>()
                 .AddDefaultTokenProviders();
-
 
             var key = Encoding.ASCII.GetBytes(configuration["Jwt:Secret"]);
             services.AddAuthentication(x =>
@@ -35,7 +33,6 @@ namespace CB.BackDefault.Api.Extensions
                     ValidateAudience = false
                 };
             })
-
 
             .AddGoogle(options =>
             {

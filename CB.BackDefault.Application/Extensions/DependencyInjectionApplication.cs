@@ -10,13 +10,14 @@ namespace CB.BackDefault.Application.Extensions
     {
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IAuthService, AuthService>();
+            services
+                .AddScoped<IAuthService, AuthService>();
 
             return services;
         }
-        public static IServiceCollection AddAutoMapper(this IServiceCollection services)
+        public static IServiceCollection AddApplicationAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+            services.AddAutoMapper(cfg => { }, typeof(AutoMapperProfile).Assembly);
 
             return services;
         }

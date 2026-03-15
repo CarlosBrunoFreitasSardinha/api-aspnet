@@ -17,7 +17,7 @@ namespace CB.BackDefault.Api.Configurations
             services.AddDataBase(configuration);
             services.AddRepositories();
             services.AddServices(configuration);
-            services.AddAutoMapper();
+            services.AddApplicationAutoMapper();
 
             services.AddAuthConfiguration(configuration);
             return services;
