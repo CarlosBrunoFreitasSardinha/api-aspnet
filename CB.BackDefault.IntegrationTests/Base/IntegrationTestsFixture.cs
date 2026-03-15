@@ -48,7 +48,7 @@ namespace CB.BackDefault.IntegrationTests.Base
                 ConfirmPassword = senha
             };
 
-            var response = await Client.PostAsJsonAsync("api/register", registerViewModel);
+            var response = await Client.PostAsJsonAsync("api/auth/register", registerViewModel);
             response.EnsureSuccessStatusCode();
         }
 
@@ -61,10 +61,16 @@ namespace CB.BackDefault.IntegrationTests.Base
                 Password = senha
             };
 
-            var response = await Client.PostAsJsonAsync("api/login", loginViewModel);
+            var response = await Client.PostAsJsonAsync("api/auth/login", loginViewModel);
             response.EnsureSuccessStatusCode();
 
-            return await response.Content.ReadAsStringAsync();
+            var result = await response.Content.ReadFromJsonAsync<LoginResult>();
+
+            return result!.Token;
+        }
+        private class LoginResult
+        {
+            public string Token { get; set; } = "";
         }
 
         // 🔹 Cria client autenticado isolado

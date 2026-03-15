@@ -1,68 +1,66 @@
 ﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels;
 using CB.BackDefault.IntegrationTests.Base;
 using CB.BackDefault.IntegrationTests.Collections;
+using System.Net;
 using System.Net.Http.Json;
 
-namespace CB.BackDefault.IntegrationTests.Controllers
+namespace CB.BackDefault.IntegrationTests.Controllers;
+
+public class AuthApiTests : BaseAuthenticatedTest<Program>
 {
-    [Collection(nameof(IntegrationApiCollection))]
-    public class AuthApiTests
+    public AuthApiTests(IntegrationTestsFixture<Program> fixture) : base(fixture)
     {
-        private readonly IntegrationTestsFixture<Program> _fixture;
+    }
 
-        public AuthApiTests(IntegrationTestsFixture<Program> fixture)
-        {
-            _fixture = fixture;
-        }
+    [Fact(DisplayName = "Deve registrar usuário com sucesso")]
+    [Trait("Categoria", "Autorization controller")]
+    public async Task Deve_Registrar_Com_Sucesso()
+    {
+        var client = Fixture.Factory.CreateClient();
 
-        [Fact(DisplayName = "Deve registrar Usuario com Sucesso")]
-        [Trait("Categoria", "Autorization controller")]
-        public async Task Deve_Registrar_Com_Sucesso()
-        {
-            await _fixture.ExecuteInTransactionAsync(async sp =>
-            {
-                var client = _fixture.Factory.CreateClient();
+        var (email, senha) = Fixture.GerarUsuarioCredenciais();
 
-                var email = $"teste_{Guid.NewGuid()}@sistema.com";
-                var senha = "SenhaForte@123";
+        var response = await client.PostAsJsonAsync("api/auth/register",
+            new RegisterViewModel(email, senha, senha));
 
-                var registerModel = new RegisterViewModel(email, senha, senha);
+        Assert.True(response.IsSuccessStatusCode);
+    }
 
-                var response = await client.PostAsJsonAsync("api/auth/register", registerModel);
+    [Fact(DisplayName = "Deve fazer login com sucesso")]
+    [Trait("Categoria", "Autorization controller")]
+    public async Task Deve_Fazer_Login_Com_Sucesso()
+    {
+        var client = Fixture.Factory.CreateClient();
 
-                Assert.True(response.IsSuccessStatusCode);
-            });
-        }
+        var (email, senha) = Fixture.GerarUsuarioCredenciais();
 
-        [Fact(DisplayName = "Deve Fazer Login com Sucesso")]
-        [Trait("Categoria", "Autorization controller")]
-        public async Task Deve_Fazer_Login_Com_Sucesso()
-        {
-            await _fixture.ExecuteInTransactionAsync(async sp =>
-            {
-                var client = _fixture.Factory.CreateClient();
+        await Fixture.CriarUsuarioAsync(email, senha);
 
-                var email = $"teste_{Guid.NewGuid()}@sistema.com";
-                var senha = "SenhaForte@123";
+        var response = await client.PostAsJsonAsync("api/auth/login",
+            new LoginViewModel(email, senha));
 
-                // registra primeiro
-                await client.PostAsJsonAsync("api/auth/register",
-                    new RegisterViewModel(email, senha, senha));
+        Assert.True(response.IsSuccessStatusCode);
+    }
 
-                var loginResponse = await client.PostAsJsonAsync("api/auth/login",
-                    new LoginViewModel(email, senha));
+    [Fact(DisplayName = "Deve retornar 401 sem token")]
+    [Trait("Categoria", "Autorization controller")]
+    public async Task Deve_Retornar_401_Sem_Token()
+    {
+        var client = Fixture.Factory.CreateClient();
 
-                var result = await loginResponse.Content.ReadFromJsonAsync<LoginResult>();
+        var response = await client.PostAsync("api/auth/logout", null);
 
-                Assert.True(loginResponse.IsSuccessStatusCode);
-                Assert.NotNull(result?.Token);
-                Assert.NotEmpty(result.Token);
-            });
-        }
+        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+    }
 
-        private class LoginResult
-        {
-            public string Token { get; set; } = string.Empty;
-        }
+    [Fact(DisplayName = "Deve fazer logout com sucesso")]
+    [Trait("Categoria", "Autorization controller")]
+    public async Task Deve_Fazer_Logout()
+    {
+        var client = await CreateAuthenticatedClientAsync();
+
+        var response = await client.PostAsync("api/auth/logout", null);
+
+        Assert.True(response.IsSuccessStatusCode);
     }
 }
