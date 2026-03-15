@@ -11,7 +11,9 @@ namespace CB.BackDefault.Application.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddScoped<IAuthService, AuthService>();
+                .AddScoped<IAuthService, AuthService>()
+                .AddScoped<ITokenService, TokenService>()
+                .AddScoped<IRefreshTokenService, RefreshTokenService>();
 
             return services;
         }
