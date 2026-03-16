@@ -78,6 +78,23 @@ namespace CB.BackDefault.Api.Controllers
         }
 
         [Authorize]
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized();
+
+            var result = await _authService.ChangePasswordAsync(userId, model);
+
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            return Ok("Senha alterada com sucesso");
+        }
+
+        [Authorize]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {

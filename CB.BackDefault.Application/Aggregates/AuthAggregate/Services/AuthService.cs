@@ -68,5 +68,18 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
                 UrlProfile = user.UrlProfile
             };
         }
+        public async Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError { Description = "Usuário não encontrado" });
+
+            return await _userManager.ChangePasswordAsync(
+                user,
+                model.CurrentPassword,
+                model.NewPassword
+            );
+        }
     }
 }
