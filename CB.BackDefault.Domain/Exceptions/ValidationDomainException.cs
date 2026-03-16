@@ -1,13 +1,10 @@
 ﻿namespace CB.BackDefault.Domain.Exceptions
 {
-    public sealed class ValidationException : DomainException
+    public sealed class ValidationDomainException : DomainException
     {
         public IReadOnlyDictionary<string, string[]> Errors { get; }
 
-        public ValidationException(
-            string message,
-            Dictionary<string, string[]>? errors = null)
-            : base(message)
+        public ValidationDomainException( string message, Dictionary<string, string[]>? errors = null) : base(message, 400)
         {
             Errors = errors ?? new Dictionary<string, string[]>();
         }

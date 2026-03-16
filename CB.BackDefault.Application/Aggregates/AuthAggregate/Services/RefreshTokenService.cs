@@ -2,6 +2,7 @@
 using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels.Response;
 using CB.BackDefault.Domain.Aggregates.AuthAggregate.Interfaces;
 using CB.BackDefault.Domain.Aggregates.AuthAggregate.Models;
+using CB.BackDefault.Domain.Exceptions;
 using CB.BackDefault.Domain.Shared.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Cryptography;
@@ -17,10 +18,10 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
         private readonly UserManager<IdentityUser> _userManager;
 
         public RefreshTokenService(
-            UserManager<IdentityUser> userManager,
-            ITokenService tokenService,
-            IRefreshTokenRepository refreshTokenRepository,
-            IUnitOfWork uow)
+                ITokenService tokenService,
+                IRefreshTokenRepository refreshTokenRepository,
+                IUnitOfWork uow,
+                UserManager<IdentityUser> userManager)
         {
             _tokenService = tokenService;
             _refreshTokenRepository = refreshTokenRepository;
@@ -33,20 +34,16 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
             var hash = HashToken(token);
 
-            var refreshToken = new RefreshTokenModel(
-                                                Guid.NewGuid(), 
-                                                hash, 
-                                                user.Id, 
-                                                DateTime.UtcNow,
-                                                DateTime.UtcNow.AddDays(7),
-                                                ip);
+            var refreshToken = new RefreshTokenModel(Guid.NewGuid(), hash, user.Id, DateTime.UtcNow, DateTime.UtcNow.AddDays(7), ip);
+
             try
             {
                 await _refreshTokenRepository.AdicionarAsync(refreshToken);
                 await _uow.CommitAsync();
             }
-            catch (Exception ex) { 
-                Console.WriteLine(ex.ToString());
+            catch (DomainException)
+            {
+                throw new UnauthorizedDomainException("Não foi possível Criar Token.");
             }
 
             return token;
@@ -55,13 +52,16 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
         private string HashToken(string token)
         {
             using var sha = SHA256.Create();
+
             var bytes = Encoding.UTF8.GetBytes(token);
             var hash = sha.ComputeHash(bytes);
+
             return Convert.ToBase64String(hash);
         }
 
         public async Task RevokeAllTokensAsync(string userId)
         {
+
             var tokens = await _refreshTokenRepository.ObterTodosAsync(x => x.UserId == userId && !x.Revoked);
 
             foreach (var token in tokens)
@@ -69,7 +69,6 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
                 token.Revoked = true;
                 token.RevokedAt = DateTime.UtcNow;
             }
-
             await _uow.CommitAsync();
         }
 
@@ -77,36 +76,34 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
         {
             var hash = HashToken(refreshToken);
 
-            try
-            {
-                var token = await _refreshTokenRepository.ObterAsync(x => x.TokenHash == hash);
 
-                if (token == null)
-                    return (null, "Token Nulo.");
+            var token = await _refreshTokenRepository.ObterAsync(x => x.TokenHash == hash);
 
-                if (token.Revoked || token.ExpirationDate < DateTime.UtcNow)
-                    return (null, "Refresh token reutilizado. Sessão comprometida.");
+            if (token == null)
+                throw new UnauthorizedDomainException("Refresh token inválido.");
 
-                var user = await _userManager.FindByIdAsync(token.UserId);
+            if (token.Revoked || token.ExpirationDate < DateTime.UtcNow)
+                throw new UnauthorizedDomainException("Refresh token reutilizado. Sessão comprometida.");
 
-                token.Revoked = true;
-                token.RevokedAt = DateTime.UtcNow;
-                token.RevokedByIp = ip;
+            var user = await _userManager.FindByIdAsync(token.UserId);
 
-                var newAccessToken = await _tokenService.GenerateAccessToken(user);
-                var newRefreshToken = await CreateTokenAsync(user, ip);
-                var newToken = await _refreshTokenRepository.ObterAsync(x => x.TokenHash == HashToken(newRefreshToken));
+            if (user == null)
+                throw new NotFoundDomainException("Usuário", token.UserId);
 
-                token.ReplacedByTokenId = newToken.Id;
+            token.Revoked = true;
+            token.RevokedAt = DateTime.UtcNow;
+            token.RevokedByIp = ip;
 
-                await _uow.CommitAsync();
-                return (new AuthResponse(newAccessToken, newRefreshToken, DateTime.Now), "ok");
-            }
-            catch (Exception ex) { 
-                Console.WriteLine(ex);
-            }
+            var newAccessToken = await _tokenService.GenerateAccessToken(user);
+            var newRefreshToken = await CreateTokenAsync(user, ip);
+            var newToken = await _refreshTokenRepository.ObterAsync(x => x.TokenHash == HashToken(newRefreshToken));
 
-            return (null, "Falha na Função Refresh token service");
+            token.ReplacedByTokenId = newToken.Id;
+
+            await _uow.CommitAsync();
+            return (new AuthResponse(newAccessToken, newRefreshToken, DateTime.Now), "ok");
+
+
         }
     }
 }

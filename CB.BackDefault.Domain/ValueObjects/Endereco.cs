@@ -21,16 +21,16 @@ public sealed class Endereco : ValueObject
     public static Endereco Create(string rua, string cidade, string estado, string cep)
     {
         if (string.IsNullOrWhiteSpace(rua))
-            throw new ValidationException("Rua obrigatória.");
+            throw new ValidationDomainException("Rua obrigatória.");
 
         if (string.IsNullOrWhiteSpace(cidade))
-            throw new ValidationException("Cidade obrigatória.");
+            throw new ValidationDomainException("Cidade obrigatória.");
 
         if (string.IsNullOrWhiteSpace(estado))
-            throw new ValidationException("Estado obrigatório.");
+            throw new ValidationDomainException("Estado obrigatório.");
 
         if (string.IsNullOrWhiteSpace(cep))
-            throw new ValidationException("CEP obrigatório.");
+            throw new ValidationDomainException("CEP obrigatório.");
 
         return new Endereco(rua, cidade, estado, cep);
     }

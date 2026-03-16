@@ -15,12 +15,12 @@ public sealed class Cpf : ValueObject
     public static Cpf Create(string numero)
     {
         if (string.IsNullOrWhiteSpace(numero))
-            throw new ValidationException("Documento inválido.");
+            throw new ValidationDomainException("Documento inválido.");
 
         var cleaned = new string(numero.Where(char.IsDigit).ToArray());
 
         if (cleaned.Length != 11)
-            throw new ValidationException("CPF deve conter 11 dígitos.");
+            throw new ValidationDomainException("CPF deve conter 11 dígitos.");
 
         return new Cpf(cleaned);
     }

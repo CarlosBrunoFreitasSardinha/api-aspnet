@@ -1,4 +1,5 @@
 ﻿using CB.BackDefault.Domain.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text.Json;
 
@@ -24,40 +25,48 @@ public class ExceptionMiddleware
         }
         catch (DomainException ex)
         {
-            _logger.LogWarning(ex, "[{CorrelationId}] Erro de domínio");
-
-            await WriteResponse(context, HttpStatusCode.BadRequest, ex.Message, correlationId);
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            _logger.LogWarning(ex, "[{CorrelationId}] Acesso não autorizado");
-
-            await WriteResponse(context, HttpStatusCode.Unauthorized, "Não autorizado", correlationId);
+            await HandleDomainException(context, correlationId, ex);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "[{CorrelationId}] Erro interno");
-
-            await WriteResponse(context, HttpStatusCode.InternalServerError, "Erro interno do servidor", correlationId);
+            await HandleUnknownException(context, correlationId, ex);
         }
     }
 
-    private static async Task WriteResponse(HttpContext context,
-                                            HttpStatusCode statusCode,
-                                            string message,
-                                            string? correlationId)
+    private async Task HandleDomainException(HttpContext context, string? correlationId, DomainException ex)
     {
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)statusCode;
+        _logger.LogWarning(ex, "Domain error");
 
-        var response = new
+        var problem = new ProblemDetails
         {
-            success = false,
-            error = message,
-            correlationId = correlationId
-
+            Title = "{{correlationId}} Erro de domínio",
+            Detail = ex.Message,
+            Status = ex.StatusCode,
+            Instance = context.Request.Path
         };
 
-        await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+        context.Response.StatusCode = ex.StatusCode;
+        context.Response.ContentType = "application/json";
+
+        await context.Response.WriteAsync(JsonSerializer.Serialize(problem));
     }
+
+    private async Task HandleUnknownException(HttpContext context, string? correlationId, Exception ex)
+    {
+        _logger.LogError(ex, "Erro inesperado");
+
+        var problem = new ProblemDetails
+        {
+            Title = "{{correlationId}} Erro interno do servidor",
+            Detail = "Ocorreu um erro inesperado.",
+            Status = StatusCodes.Status500InternalServerError,
+            Instance = context.Request.Path
+        };
+
+        context.Response.StatusCode = 500;
+        context.Response.ContentType = "application/json";
+
+        await context.Response.WriteAsync(JsonSerializer.Serialize(problem));
+    }
+
 }

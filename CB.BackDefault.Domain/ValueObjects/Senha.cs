@@ -15,10 +15,10 @@ public sealed class Senha : ValueObject
     public static Senha Create(string rawSenha)
     {
         if (string.IsNullOrWhiteSpace(rawSenha))
-            throw new ValidationException("Senha não pode ser vazia.");
+            throw new ValidationDomainException("Senha não pode ser vazia.");
 
         if (rawSenha.Length < 8)
-            throw new ValidationException("Senha deve ter no mínimo 8 caracteres.");
+            throw new ValidationDomainException("Senha deve ter no mínimo 8 caracteres.");
 
         // Exemplo simples — em produção use BCrypt/Argon2
         var hashed = BCrypt.Net.BCrypt.HashPassword(rawSenha);

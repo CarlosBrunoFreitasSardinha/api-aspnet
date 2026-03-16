@@ -2,9 +2,11 @@
 {
     public abstract class DomainException : Exception
     {
-        protected DomainException(string message)
-            : base(message)
+        public int StatusCode { get; }
+
+        protected DomainException(string message, int statusCode) : base(message)
         {
+            StatusCode = statusCode;
         }
     }
 }

@@ -16,10 +16,10 @@ public sealed class Email : ValueObject
     public static Email Create(string address)
     {
         if (string.IsNullOrWhiteSpace(address))
-            throw new ValidationException("Email não pode ser vazio.");
+            throw new ValidationDomainException("Email não pode ser vazio.");
 
         if (!IsValid(address))
-            throw new ValidationException("Email inválido.");
+            throw new ValidationDomainException("Email inválido.");
 
         return new Email(address.Trim().ToLower());
     }
