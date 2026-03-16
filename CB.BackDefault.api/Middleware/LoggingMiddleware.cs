@@ -7,8 +7,7 @@ public class LoggingMiddleware
     private readonly RequestDelegate _next;
     private readonly ILogger<LoggingMiddleware> _logger;
 
-    public LoggingMiddleware(RequestDelegate next,
-                             ILogger<LoggingMiddleware> logger)
+    public LoggingMiddleware(RequestDelegate next, ILogger<LoggingMiddleware> logger)
     {
         _next = next;
         _logger = logger;
@@ -20,7 +19,7 @@ public class LoggingMiddleware
         var stopwatch = Stopwatch.StartNew();
 
         _logger.LogInformation(
-            "Request: {Method} {Path}",
+            "Request {CorrelationId}: {Method} {Path}",
             correlationId,
             context.Request.Method,
             context.Request.Path);
@@ -30,7 +29,7 @@ public class LoggingMiddleware
         stopwatch.Stop();
 
         _logger.LogInformation(
-            "Response: {StatusCode} em {Elapsed}ms",
+            "Response {CorrelationId}: {StatusCode} em {Elapsed}ms",
             correlationId,
             context.Response.StatusCode,
             stopwatch.ElapsedMilliseconds);

@@ -6,9 +6,10 @@ using CB.BackDefault.Application.Shared.Settings;
 var builder = WebApplication.CreateBuilder(args);
 
 
+builder.Host.AddSerilogConfiguration();
+
 builder.Services.AddControllers();
 //builder.Services.AddOpenApi();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
