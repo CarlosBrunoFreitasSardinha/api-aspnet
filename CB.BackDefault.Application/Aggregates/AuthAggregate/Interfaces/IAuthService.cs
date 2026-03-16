@@ -11,5 +11,6 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces
 
         // Task<string?> ExternalLoginAsync(ExternalLoginInfo info);
         Task<UserProfileResponse?> GetUserProfileAsync(string userId);
+        Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordViewModel model);
     }
 }
