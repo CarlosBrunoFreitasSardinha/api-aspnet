@@ -39,7 +39,7 @@ public class ExceptionMiddleware
 
         var problem = new ProblemDetails
         {
-            Title = "{{correlationId}} Erro de domínio",
+            Title = $"{correlationId} Erro de domínio",
             Detail = ex.Message,
             Status = ex.StatusCode,
             Instance = context.Request.Path
@@ -57,7 +57,7 @@ public class ExceptionMiddleware
 
         var problem = new ProblemDetails
         {
-            Title = "{{correlationId}} Erro interno do servidor",
+            Title = $"{correlationId} Erro interno do servidor",
             Detail = "Ocorreu um erro inesperado.",
             Status = StatusCodes.Status500InternalServerError,
             Instance = context.Request.Path
