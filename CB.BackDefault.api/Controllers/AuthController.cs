@@ -41,7 +41,7 @@ namespace CB.BackDefault.Api.Controllers
             var result = await _authService.LoginAsync(model, ip);
 
             if (result == null)
-                return Unauthorized();
+                return Unauthorized("Usuário ou Senha Incorretos");
 
             return Ok(result);
         }
@@ -52,10 +52,10 @@ namespace CB.BackDefault.Api.Controllers
         {
             var ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "";
 
-            var (newAccessToken, mensagem) = await _refreshTokenService.RefreshAsync(refreshToken, ip);
+            var newAccessToken= await _refreshTokenService.RefreshAsync(refreshToken, ip);
 
             if (newAccessToken == null)
-                return Unauthorized(mensagem);
+                return Unauthorized();
 
             return Ok(newAccessToken);
         }

@@ -72,7 +72,7 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
             await _uow.CommitAsync();
         }
 
-        public async Task<(AuthResponse?, string)> RefreshAsync(string refreshToken, string ip)
+        public async Task<AuthResponse?> RefreshAsync(string refreshToken, string ip)
         {
             var hash = HashToken(refreshToken);
 
@@ -101,7 +101,8 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
             token.ReplacedByTokenId = newToken.Id;
 
             await _uow.CommitAsync();
-            return (new AuthResponse(newAccessToken, newRefreshToken, DateTime.Now), "ok");
+
+            return new AuthResponse(newAccessToken, newRefreshToken, DateTime.Now);
 
 
         }

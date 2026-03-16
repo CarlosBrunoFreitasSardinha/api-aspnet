@@ -6,7 +6,7 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces
     public interface IRefreshTokenService
     {
         Task<string> CreateTokenAsync(IdentityUser user, string ipAddress);
-        Task<(AuthResponse?, string)> RefreshAsync(string refreshToken, string ipAddress);
+        Task<AuthResponse?> RefreshAsync(string refreshToken, string ipAddress);
         Task RevokeAllTokensAsync(string userId);
     }
 }
