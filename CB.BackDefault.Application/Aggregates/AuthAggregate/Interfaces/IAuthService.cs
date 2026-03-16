@@ -10,5 +10,6 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces
         Task<IdentityResult> RegisterAsync(RegisterViewModel model);
 
         // Task<string?> ExternalLoginAsync(ExternalLoginInfo info);
+        Task<UserProfileResponse?> GetUserProfileAsync(string userId);
     }
 }
