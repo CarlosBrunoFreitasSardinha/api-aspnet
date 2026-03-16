@@ -61,6 +61,23 @@ namespace CB.BackDefault.Api.Controllers
         }
 
         [Authorize]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetProfile()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized();
+
+            var user = await _authService.GetUserProfileAsync(userId);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
+        }
+
+        [Authorize]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {

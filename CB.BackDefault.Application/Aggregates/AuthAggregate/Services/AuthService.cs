@@ -51,5 +51,22 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
 
             return new AuthResponse(accessToken, refreshToken, DateTime.Now);
         }
+
+        public async Task<UserProfileResponse?> GetUserProfileAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return null;
+
+            return new UserProfileResponse
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Name = user.Name,
+                LastName = user.LastName,
+                UrlProfile = user.UrlProfile
+            };
+        }
     }
 }
