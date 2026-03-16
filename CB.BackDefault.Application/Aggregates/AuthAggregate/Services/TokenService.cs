@@ -1,5 +1,6 @@
 ﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces;
 using CB.BackDefault.Application.Shared.Settings;
+using CB.BackDefault.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,15 +12,15 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
     public class TokenService : ITokenService
     {
         private readonly JwtSettings _jwtSettings;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<UserApplication> _userManager;
 
-        public TokenService(JwtSettings jwtSettings, UserManager<IdentityUser> userManager)
+        public TokenService(JwtSettings jwtSettings, UserManager<UserApplication> userManager)
         {
             _jwtSettings = jwtSettings;
             _userManager = userManager;
         }
 
-        public async Task<string> GenerateAccessToken(IdentityUser user)
+        public async Task<string> GenerateAccessToken(UserApplication user)
         {
             var claims = await _userManager.GetClaimsAsync(user);
 

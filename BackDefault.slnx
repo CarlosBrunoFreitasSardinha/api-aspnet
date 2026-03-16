@@ -8,6 +8,9 @@
   <Folder Name="/3 - Domain/">
     <Project Path="CB.BackDefault.Domain/CB.BackDefault.Domain.csproj" />
   </Folder>
+  <Folder Name="/3 - Identity/">
+    <Project Path="CB.BackDefault.Identity/CB.BackDefault.Identity.csproj" Id="71ba8e95-b8f7-4da0-ad29-c56dcebbd868" />
+  </Folder>
   <Folder Name="/4 - Infra/">
     <Project Path="CB.BackDefault.Infra.Data/CB.BackDefault.Infra.Data.csproj" />
   </Folder>

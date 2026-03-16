@@ -1,6 +1,7 @@
 ﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces;
 using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels;
 using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels.Response;
+using CB.BackDefault.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
@@ -9,12 +10,12 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
     {
         private readonly ITokenService _tokenService;
         private readonly IRefreshTokenService _refreshService;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<UserApplication> _userManager;
+        private readonly SignInManager<UserApplication> _signInManager;
 
         public AuthService(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<UserApplication> userManager,
+            SignInManager<UserApplication> signInManager,
             ITokenService tokenService,
             IRefreshTokenService refreshService
             )
@@ -27,7 +28,7 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
 
         public async Task<IdentityResult> RegisterAsync(RegisterViewModel model)
         {
-            var user = new IdentityUser 
+            var user = new UserApplication 
             { 
                 UserName = model.Email, 
                 Email = model.Email

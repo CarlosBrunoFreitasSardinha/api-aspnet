@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CB.BackDefault.Domain\CB.BackDefault.Domain.csproj" />
+    <ProjectReference Include="..\CB.BackDefault.Identity\CB.BackDefault.Identity.csproj" />
   </ItemGroup>
 
 </Project>

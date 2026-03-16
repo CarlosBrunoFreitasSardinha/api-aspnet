@@ -1,4 +1,5 @@
-﻿using CB.BackDefault.Infra.Data.Context;
+﻿using CB.BackDefault.Identity.Models;
+using CB.BackDefault.Infra.Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -10,7 +11,7 @@ namespace CB.BackDefault.Api.Extensions
     {
         public static IServiceCollection AddAuthConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<UserApplication, IdentityRole>()
                 .AddEntityFrameworkStores<BackDefaultContext>()
                 .AddDefaultTokenProviders();
 

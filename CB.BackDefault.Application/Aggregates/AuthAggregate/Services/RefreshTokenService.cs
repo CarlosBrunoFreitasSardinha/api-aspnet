@@ -4,6 +4,7 @@ using CB.BackDefault.Domain.Aggregates.AuthAggregate.Interfaces;
 using CB.BackDefault.Domain.Aggregates.AuthAggregate.Models;
 using CB.BackDefault.Domain.Exceptions;
 using CB.BackDefault.Domain.Shared.Interfaces;
+using CB.BackDefault.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,13 +16,13 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
         private readonly ITokenService _tokenService;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly IUnitOfWork _uow;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<UserApplication> _userManager;
 
         public RefreshTokenService(
                 ITokenService tokenService,
                 IRefreshTokenRepository refreshTokenRepository,
                 IUnitOfWork uow,
-                UserManager<IdentityUser> userManager)
+                UserManager<UserApplication> userManager)
         {
             _tokenService = tokenService;
             _refreshTokenRepository = refreshTokenRepository;
@@ -29,7 +30,7 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
             _userManager = userManager;
         }
 
-        public async Task<string> CreateTokenAsync(IdentityUser user, string ip)
+        public async Task<string> CreateTokenAsync(UserApplication user, string ip)
         {
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
             var hash = HashToken(token);

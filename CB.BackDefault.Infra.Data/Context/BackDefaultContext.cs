@@ -1,12 +1,12 @@
 ﻿using CB.BackDefault.Domain.Aggregates.AuthAggregate.Models;
-using Microsoft.AspNetCore.Identity;
+using CB.BackDefault.Identity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CB.BackDefault.Infra.Data.Context
 {
-    public class BackDefaultContext : IdentityDbContext<IdentityUser>
+    public class BackDefaultContext : IdentityDbContext<UserApplication>
     {
 
         public BackDefaultContext(DbContextOptions<BackDefaultContext> options) : base(options)

@@ -1,5 +1,5 @@
 ﻿using CB.BackDefault.Domain.Aggregates.AuthAggregate.Models;
-using CB.BackDefault.Infra.Data.Shared.Identity;
+using CB.BackDefault.Identity.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CB.BackDefault.Infra.Data.Aggregates.AuthAggregate.Mappings
@@ -9,8 +9,8 @@ namespace CB.BackDefault.Infra.Data.Aggregates.AuthAggregate.Mappings
         public static void AddRefreshToken(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RefreshTokenModel>()
-                        .HasOne<UserAplication>()
-                        .WithMany(u => u.RefreshTokens)
+                        .HasOne<UserApplication>()
+                        .WithMany()
                         .HasForeignKey(r => r.UserId);
         }
     }
