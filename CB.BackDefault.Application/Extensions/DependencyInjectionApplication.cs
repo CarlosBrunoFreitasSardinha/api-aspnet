@@ -13,7 +13,9 @@ namespace CB.BackDefault.Application.Extensions
             services
                 .AddScoped<IAuthService, AuthService>()
                 .AddScoped<ITokenService, TokenService>()
-                .AddScoped<IRefreshTokenService, RefreshTokenService>();
+                .AddScoped<IRefreshTokenService, RefreshTokenService>()
+                .AddScoped<IRoleService, RoleService>()
+                .AddScoped<IClaimsService, ClaimService>();
             return services;
         }
         public static IServiceCollection AddApplicationAutoMapper(this IServiceCollection services)
