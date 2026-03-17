@@ -1,10 +1,10 @@
-﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces;
-using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels;
-using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels.Response;
+﻿using CB.BackDefault.Application.Aggregates.IdentityAggregate.Interfaces;
+using CB.BackDefault.Application.Aggregates.IdentityAggregate.ViewModels;
+using CB.BackDefault.Application.Aggregates.IdentityAggregate.ViewModels.Response;
 using CB.BackDefault.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
+namespace CB.BackDefault.Application.Aggregates.IdentityAggregate.Services
 {
     public class AuthService : IAuthService
     {
@@ -30,7 +30,7 @@ namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
         {
             var user = new UserApplication 
             { 
-                UserName = model.Email, 
+                UserName = model.Email,
                 Email = model.Email
             };
 

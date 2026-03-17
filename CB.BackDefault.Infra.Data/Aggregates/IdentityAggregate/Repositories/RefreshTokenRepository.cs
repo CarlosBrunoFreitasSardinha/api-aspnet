@@ -1,10 +1,10 @@
-﻿using CB.BackDefault.Domain.Aggregates.AuthAggregate.Interfaces;
-using CB.BackDefault.Domain.Aggregates.AuthAggregate.Models;
+﻿using CB.BackDefault.Domain.Aggregates.IdentityAggregate.Interfaces;
+using CB.BackDefault.Domain.Aggregates.IdentityAggregate.Models;
 using CB.BackDefault.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace CB.BackDefault.Infra.Data.Aggregates.AuthAggregate.Repositories
+namespace CB.BackDefault.Infra.Data.Aggregates.IdentityAggregate.Repositories
 {
     public class RefreshTokenRepository : Repository<RefreshTokenModel>, IRefreshTokenRepository
     {

@@ -1,4 +1,4 @@
-﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces;
+﻿using CB.BackDefault.Application.Aggregates.IdentityAggregate.Interfaces;
 using CB.BackDefault.Application.Shared.Settings;
 using CB.BackDefault.Identity.Models;
 using Microsoft.AspNetCore.Identity;
@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
+namespace CB.BackDefault.Application.Aggregates.IdentityAggregate.Services
 {
     public class TokenService : ITokenService
     {

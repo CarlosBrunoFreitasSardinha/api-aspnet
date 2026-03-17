@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CB.BackDefault.Domain.Aggregates.AuthAggregate.Models
+namespace CB.BackDefault.Domain.Aggregates.IdentityAggregate.Models
 {
     [Table("RefreshToken")]
     public class RefreshTokenModel

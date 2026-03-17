@@ -1,4 +1,4 @@
-﻿namespace CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels
+﻿namespace CB.BackDefault.Application.Aggregates.IdentityAggregate.ViewModels
 {
     public class ChangePasswordViewModel
     {

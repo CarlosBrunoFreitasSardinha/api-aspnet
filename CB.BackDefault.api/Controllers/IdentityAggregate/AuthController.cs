@@ -1,10 +1,10 @@
-﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces;
-using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels;
+﻿using CB.BackDefault.Application.Aggregates.IdentityAggregate.Interfaces;
+using CB.BackDefault.Application.Aggregates.IdentityAggregate.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace CB.BackDefault.Api.Controllers
+namespace CB.BackDefault.Api.Controllers.IdentityAggregate
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -25,6 +25,10 @@ namespace CB.BackDefault.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+
+            if (string.IsNullOrEmpty(model?.Email) || string.IsNullOrEmpty(model?.Password) || string.IsNullOrEmpty(model?.ConfirmPassword))
+                return BadRequest();
+
             var result = await _authService.RegisterAsync(model);
 
             if (!result.Succeeded)
@@ -36,6 +40,10 @@ namespace CB.BackDefault.Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+
+            if (string.IsNullOrEmpty(model?.Email) || string.IsNullOrEmpty(model?.Password))
+                return BadRequest();
+
             var ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "";
 
             var result = await _authService.LoginAsync(model, ip);
@@ -50,6 +58,9 @@ namespace CB.BackDefault.Api.Controllers
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken([FromBody] string refreshToken)
         {
+            if (string.IsNullOrEmpty(refreshToken))
+                return BadRequest();
+
             var ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "";
 
             var newAccessToken= await _refreshTokenService.RefreshAsync(refreshToken, ip);
@@ -81,6 +92,10 @@ namespace CB.BackDefault.Api.Controllers
         [HttpPost("change-password")]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
+
+            if (string.IsNullOrEmpty(model?.CurrentPassword) || string.IsNullOrEmpty(model?.NewPassword))
+                return BadRequest();
+
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (string.IsNullOrEmpty(userId))

@@ -1,4 +1,4 @@
-﻿namespace CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels.Response
+﻿namespace CB.BackDefault.Application.Aggregates.IdentityAggregate.ViewModels.Response
 {
     public class UserProfileResponse
     {

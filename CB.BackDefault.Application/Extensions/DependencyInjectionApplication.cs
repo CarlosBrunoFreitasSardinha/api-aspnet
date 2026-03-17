@@ -1,5 +1,5 @@
-﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces;
-using CB.BackDefault.Application.Aggregates.AuthAggregate.Services;
+﻿using CB.BackDefault.Application.Aggregates.IdentityAggregate.Interfaces;
+using CB.BackDefault.Application.Aggregates.IdentityAggregate.Services;
 using CB.BackDefault.Application.AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +14,6 @@ namespace CB.BackDefault.Application.Extensions
                 .AddScoped<IAuthService, AuthService>()
                 .AddScoped<ITokenService, TokenService>()
                 .AddScoped<IRefreshTokenService, RefreshTokenService>();
-
             return services;
         }
         public static IServiceCollection AddApplicationAutoMapper(this IServiceCollection services)

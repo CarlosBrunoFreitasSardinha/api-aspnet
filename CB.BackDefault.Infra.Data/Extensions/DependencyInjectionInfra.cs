@@ -1,6 +1,6 @@
-﻿using CB.BackDefault.Domain.Aggregates.AuthAggregate.Interfaces;
+﻿using CB.BackDefault.Domain.Aggregates.IdentityAggregate.Interfaces;
 using CB.BackDefault.Domain.Shared.Interfaces;
-using CB.BackDefault.Infra.Data.Aggregates.AuthAggregate.Repositories;
+using CB.BackDefault.Infra.Data.Aggregates.IdentityAggregate.Repositories;
 using CB.BackDefault.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

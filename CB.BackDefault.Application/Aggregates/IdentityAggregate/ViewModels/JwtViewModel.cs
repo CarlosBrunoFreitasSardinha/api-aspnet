@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels
+namespace CB.BackDefault.Application.Aggregates.IdentityAggregate.ViewModels
 {
     internal class JwtViewModel
     {

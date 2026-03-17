@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\AuthAggregate\Commands\" />
     <Folder Include="Resources\TemplatesHtml\Emails\" />
   </ItemGroup>
 

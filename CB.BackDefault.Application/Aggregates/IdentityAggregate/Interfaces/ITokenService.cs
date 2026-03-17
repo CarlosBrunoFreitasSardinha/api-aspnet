@@ -1,6 +1,6 @@
 ﻿using CB.BackDefault.Identity.Models;
 
-namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces
+namespace CB.BackDefault.Application.Aggregates.IdentityAggregate.Interfaces
 {
     public interface ITokenService
     {

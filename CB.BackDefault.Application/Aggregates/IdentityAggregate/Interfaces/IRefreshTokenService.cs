@@ -1,7 +1,7 @@
-﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels.Response;
+﻿using CB.BackDefault.Application.Aggregates.IdentityAggregate.ViewModels.Response;
 using CB.BackDefault.Identity.Models;
 
-namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces
+namespace CB.BackDefault.Application.Aggregates.IdentityAggregate.Interfaces
 {
     public interface IRefreshTokenService
     {

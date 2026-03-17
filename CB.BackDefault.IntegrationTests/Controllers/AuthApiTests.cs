@@ -1,4 +1,4 @@
-﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels;
+﻿using CB.BackDefault.Application.Aggregates.IdentityAggregate.ViewModels;
 using CB.BackDefault.IntegrationTests.Base;
 using CB.BackDefault.IntegrationTests.Collections;
 using System.Net;

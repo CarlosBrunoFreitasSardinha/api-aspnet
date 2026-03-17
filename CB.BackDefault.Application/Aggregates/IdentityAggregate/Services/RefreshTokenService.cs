@@ -1,7 +1,7 @@
-﻿using CB.BackDefault.Application.Aggregates.AuthAggregate.Interfaces;
-using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels.Response;
-using CB.BackDefault.Domain.Aggregates.AuthAggregate.Interfaces;
-using CB.BackDefault.Domain.Aggregates.AuthAggregate.Models;
+﻿using CB.BackDefault.Application.Aggregates.IdentityAggregate.Interfaces;
+using CB.BackDefault.Application.Aggregates.IdentityAggregate.ViewModels.Response;
+using CB.BackDefault.Domain.Aggregates.IdentityAggregate.Models;
+using CB.BackDefault.Domain.Aggregates.IdentityAggregate.Interfaces;
 using CB.BackDefault.Domain.Exceptions;
 using CB.BackDefault.Domain.Shared.Interfaces;
 using CB.BackDefault.Identity.Models;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CB.BackDefault.Application.Aggregates.AuthAggregate.Services
+namespace CB.BackDefault.Application.Aggregates.IdentityAggregate.Services
 {
     public class RefreshTokenService : IRefreshTokenService
     {

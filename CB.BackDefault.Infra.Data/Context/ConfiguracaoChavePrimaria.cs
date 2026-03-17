@@ -1,4 +1,4 @@
-﻿using CB.BackDefault.Domain.Aggregates.AuthAggregate.Models;
+﻿using CB.BackDefault.Domain.Aggregates.IdentityAggregate.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CB.BackDefault.Infra.Data.Context

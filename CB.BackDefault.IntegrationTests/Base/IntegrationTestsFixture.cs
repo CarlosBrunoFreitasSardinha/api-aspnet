@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using CB.BackDefault.Application.Aggregates.AuthAggregate.ViewModels;
+using CB.BackDefault.Application.Aggregates.IdentityAggregate.ViewModels;
 using CB.BackDefault.Infra.Data.Context;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;

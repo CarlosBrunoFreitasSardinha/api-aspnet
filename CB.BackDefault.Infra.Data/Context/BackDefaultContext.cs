@@ -1,4 +1,4 @@
-﻿using CB.BackDefault.Domain.Aggregates.AuthAggregate.Models;
+﻿using CB.BackDefault.Domain.Aggregates.IdentityAggregate.Models;
 using CB.BackDefault.Identity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
